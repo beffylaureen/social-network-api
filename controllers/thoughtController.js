@@ -16,11 +16,11 @@ module.exports = {
       const thoughts = await Thought.findOne({ _id: req.params.thoughtId })
         .select('-__v');
 
-      if (!thought) {
+      if (!thoughts) {
         return res.status(404).json({ message: 'No thought with that ID' });
       }
 
-      res.json(thought);
+      res.json(thoughts);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -78,26 +78,31 @@ module.exports = {
       console.log(err);
       return res.status(500).json(err);
     }
+  },
 
 
-    //delete reaction
-    deleteReaction( req, res);
-      try {
-        const reaction = Reaction.findOneAndDelete({ _id: req.params.reactionId });
-  
-        if (!reaction) {
-          res.status(404).json({ message: 'No reaction with that ID' });
-        }
-  
-        await User.deleteMany({ _id: { $in: reaction.user } });
-        res.json({ message: 'Reaction and user deleted!' });
-      } catch (err) {
-        res.status(500).json(err);
+  //delete reaction
+  async deleteReaction(req, res) {
+    try {
+      const thoughtData = await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        { $pull: {reactions: {reactionId: req.params.reactionId}} },
+        { runValidators:true, new:true }
+      );
+
+      if (!reaction) {
+        res.status(404).json({ message: 'No reaction with that ID' });
       }
+
+      // User.deleteMany({ _id: { $in: reaction.user } });
+      res.json(thoughtData);
+    } catch (err) {
+      res.status(500).json(err);
     }
-      
-      
-      
-      
-      
-      };
+  }
+
+
+
+
+
+};

@@ -13,7 +13,7 @@ async getUser(req, res) {
 // Get a single user
 async getSingleUser(req, res) {
   try {
-    const users = await User.findOne({ _id: req.params.userId })
+    const user = await User.findOne({ _id: req.params.userId })
       .select('-__v');
 
     if (!user) {
