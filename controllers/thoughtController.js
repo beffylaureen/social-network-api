@@ -10,7 +10,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-  // Get a thought
+  // Get a single thought
   async getSingleThought(req, res) {
     try {
       const thoughts = await Thought.findOne({ _id: req.params.thoughtId })
@@ -68,4 +68,36 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-};
+
+  //create reaction
+  async createReaction(req, res) {
+    try {
+      const reaction = await Reaction.create(req.body);
+      res.json(reaction);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+
+
+    //delete reaction
+    deleteReaction( req, res);
+      try {
+        const reaction = Reaction.findOneAndDelete({ _id: req.params.reactionId });
+  
+        if (!reaction) {
+          res.status(404).json({ message: 'No reaction with that ID' });
+        }
+  
+        await User.deleteMany({ _id: { $in: reaction.user } });
+        res.json({ message: 'Reaction and user deleted!' });
+      } catch (err) {
+        res.status(500).json(err);
+      }
+    }
+      
+      
+      
+      
+      
+      };
