@@ -72,11 +72,15 @@ module.exports = {
   //create reaction
   async createReaction(req, res) {
     try {
-      const reaction = await Reaction.create(req.body);
-      res.json({ message: 'Reaction recorded!' });
-    } catch (err) {
+      const reaction = await Thought.findOneAndUpdate(
+          { _id: req.params.thoughtId },
+          { $addToSet: { reactions: req.body } },
+          { runValidators: true, new: true }
+        ); 
+        res.json({ message: 'Reaction recorded!' });
+      } catch (err) {
       console.log(err);
-      return res.status(500).json(err);
+        return res.status(500).json(err);
     }
   },
 
