@@ -1,4 +1,4 @@
-const { User, Thought } = require('../models');
+const { User, Thought, Reaction } = require('../models');
 
 module.exports = {
   // Get all thoughts
@@ -73,7 +73,7 @@ module.exports = {
   async createReaction(req, res) {
     try {
       const reaction = await Reaction.create(req.body);
-      res.json(reaction);
+      res.json({ message: 'Reaction recorded!' });
     } catch (err) {
       console.log(err);
       return res.status(500).json(err);

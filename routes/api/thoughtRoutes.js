@@ -20,14 +20,15 @@ router
   .delete(deleteThought);
 
 // post reaction
+// /api/thoughts/:thoughtId/reaction
 router
-  .route('/:thoughtID/reactions')
+  .route('/:thoughtID/reaction')
   .post(createReaction);
 
 
 //delete reaction
 router 
-  .route('/:thoughtId/reactions/:reactionId')
+  .route('/:thoughtId/reaction/:reactionId')
   .delete(deleteReaction);
 
   
