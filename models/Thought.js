@@ -1,5 +1,5 @@
 const { Schema, model, Types } = require("mongoose");
-// const time = require("time")
+
 
 const reactionSchema = new Schema (
   {
@@ -19,7 +19,7 @@ const reactionSchema = new Schema (
     createdAt: {
       type: Date,
       default: Date.now,
-      // get: createdAtTime => time(createdAtTime).format("MM DD, YYYY [at] hh:mm a"),
+      
     },
   },
   {
@@ -43,7 +43,7 @@ const thoughtSchema = new Schema (
     createdAt: {
       type: Date,
       default: Date.now(),
-      // get: createdAtTime => time(createdAtTime).format("MM DD, YYYY [at] hh:mm a"),
+
     },
     username: {
       type: String,

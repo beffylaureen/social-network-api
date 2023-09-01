@@ -44,7 +44,7 @@ async deleteUser(req, res) {
       res.status(404).json({ message: 'No user with that ID' });
     }
 
-    await User.deleteMany({ _id: { $in: thought.user } });
+    await Thought.deleteMany({ _id: { $in: user.thought } });
     res.json({ message: 'Thought and user deleted!' });
   } catch (err) {
     res.status(500).json(err);
